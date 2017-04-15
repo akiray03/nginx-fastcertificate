@@ -9,6 +9,7 @@ services:
     volumes:
       - ./docker/conf:/usr/local/nginx/conf
       - ./docker/hook:/usr/local/nginx/hook
+      - ./logs:/usr/local/nginx/logs
     links:
       - redis:redis
     depends_on:
