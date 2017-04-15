@@ -17,6 +17,8 @@ RUN apt-get -y update \
 		gcc make \
 		libpcre3 libpcre3-dev \
 		libmysqlclient-dev \
+		redis-tools \
+		netcat \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/local/src/ && git clone https://github.com/matsumotory/ngx_mruby.git
