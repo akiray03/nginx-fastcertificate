@@ -1,0 +1,20 @@
+version: '3'
+services:
+  nginx:
+    # image: matsumotory/ngx-mruby
+    build: .
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./docker/conf:/usr/local/nginx/conf
+      - ./docker/hook:/usr/local/nginx/hook
+    links:
+      - redis:redis
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:3.2-alpine
+    expose:
+      - '6379'
