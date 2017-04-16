@@ -2,7 +2,7 @@ version: '3'
 services:
   nginx:
     image: quay.io/akiray03/nginx-fastcertificate
-    # build: .
+    # build: ./build
     ports:
       - '80:80'
       - '443:443'
@@ -11,10 +11,11 @@ services:
     links:
       - redis:redis
     environment:
+      NGINX_WORKER_PROCESSES: 2
       REDIS_HOST: "redis"
       SSL_DOMAINS: "test.ssltest.yumiyama.com test2.ssltest.yumiyama.com test3.ssltest.yumiyama.com"
-      test.ssltest.yumiyama.com_PROXY_TO_HOST: 127.0.0.1
-      test.ssltest.yumiyama.com_PROXY_TO_PORT: '3000'
+      test_ssltest_yumiyama_com_PROXY_TO_HOST: INTERNAL_IP
+      test_ssltest_yumiyama_com_PROXY_TO_PORT: '3000'
     depends_on:
       - redis
 
