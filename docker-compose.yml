@@ -1,8 +1,8 @@
 version: '3'
 services:
   nginx:
-    # image: matsumotory/ngx-mruby
-    build: .
+    image: quay.io/akiray03/nginx-fastcertificate
+    # build: .
     ports:
       - '80:80'
       - '443:443'
