@@ -1,2 +1,5 @@
 logs/*.log
 logs/*.pid
+conf/auto-ssl/accounts
+conf/auto-ssl/cert
+conf/auto-ssl/dehydrated_out
