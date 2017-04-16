@@ -10,6 +10,9 @@ services:
       - ./logs:/usr/local/nginx/logs
     links:
       - redis:redis
+    environment:
+      REDIS_HOST: "redis"
+      SSL_DOMAINS: "test.ssltest.yumiyama.com test2.ssltest.yumiyama.com test3.ssltest.yumiyama.com"
     depends_on:
       - redis
 
