@@ -13,6 +13,8 @@ services:
     environment:
       REDIS_HOST: "redis"
       SSL_DOMAINS: "test.ssltest.yumiyama.com test2.ssltest.yumiyama.com test3.ssltest.yumiyama.com"
+      test.ssltest.yumiyama.com_PROXY_TO_HOST: 127.0.0.1
+      test.ssltest.yumiyama.com_PROXY_TO_PORT: '3000'
     depends_on:
       - redis
 
