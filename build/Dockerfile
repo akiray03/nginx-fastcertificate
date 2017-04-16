@@ -28,9 +28,6 @@ RUN cd /usr/local/src/ngx_mruby && sh build.sh && make install
 EXPOSE 80
 EXPOSE 443
 
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
 COPY hook /usr/local/nginx/hook
 COPY conf /usr/local/nginx/conf
 
