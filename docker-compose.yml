@@ -7,8 +7,6 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./conf:/usr/local/nginx/conf
-      - ./hook:/usr/local/nginx/hook
       - ./logs:/usr/local/nginx/logs
     links:
       - redis:redis
