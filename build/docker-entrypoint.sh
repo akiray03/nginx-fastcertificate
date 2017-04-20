@@ -15,4 +15,6 @@ export INTERNAL_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.in
 
 cat /usr/local/nginx/conf/nginx.conf
 
+echo "INTERNAL_IP is $INTERNAL_IP"
+
 exec "$@"
