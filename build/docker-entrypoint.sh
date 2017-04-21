@@ -4,8 +4,7 @@ rm -f /usr/local/nginx/conf/env_vars.conf
 for e in $(env | grep -E "_PROXY_TO_(HOST|PORT)" | cut -d'=' -f1)
 do
   echo "env $e; # REPLACE_LINE"
-done > /tmp/env-vars
-echo "worker_processes $NGINX_WORKER_PROCESSES; # REPLACE_LINE" > /usr/local/nginx/conf/env_vars.conf
+done > /usr/local/nginx/conf/env_vars.conf
 
 if [ ! -z "$NGINX_WORKER_PROCESSES" ]; then
   rm -f /usr/local/nginx/conf/worker_processes.conf
