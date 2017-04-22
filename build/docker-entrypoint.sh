@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm -f /usr/local/nginx/conf/env_vars.conf
-for e in $(env | grep -E "_PROXY_TO_(URL|HOST|PORT)" | cut -d'=' -f1)
+for e in $(env | grep -E "_PROXY_TO_(HOST|PORT)" | cut -d'=' -f1)
 do
   echo "env $e;"
 done > /usr/local/nginx/conf/env_vars.conf
