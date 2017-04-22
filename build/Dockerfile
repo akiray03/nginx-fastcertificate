@@ -1,6 +1,8 @@
 FROM ubuntu:16.04
 MAINTAINER akiray03
 
+RUN groupadd -r -g 500 nginx && useradd -r -g nginx -u 500 nginx
+
 RUN apt-get -y update \
 	&& apt-get -y install --no-install-recommends \
 		git \
