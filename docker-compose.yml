@@ -13,9 +13,10 @@ services:
     environment:
       NGINX_WORKER_PROCESSES: 2
       REDIS_HOST: "redis"
-      SSL_DOMAINS: "test.ssltest.yumiyama.com test2.ssltest.yumiyama.com test3.ssltest.yumiyama.com"
-      test_ssltest_yumiyama_com_PROXY_TO_HOST: INTERNAL_IP
-      test_ssltest_yumiyama_com_PROXY_TO_PORT: '3000'
+      SSL_DOMAINS: "test.example.com test2.example.com"
+      test_example_com_PROXY_TO_HOST: INTERNAL_IP
+      test_example_com_PROXY_TO_PORT: '3000'
+      test2_example_com_PROXY_TO_URL: http://test2.origin.example.com
     depends_on:
       - redis
 

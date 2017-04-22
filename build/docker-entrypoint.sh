@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm -f /usr/local/nginx/conf/env_vars.conf
-for e in $(env | grep -E "_PROXY_TO_(HOST|PORT)" | cut -d'=' -f1)
+for e in $(env | grep -E "_PROXY_TO_(URL|HOST|PORT)" | cut -d'=' -f1)
 do
   echo "env $e;"
 done > /usr/local/nginx/conf/env_vars.conf
@@ -12,9 +12,16 @@ if [ ! -z "$NGINX_WORKER_PROCESSES" ]; then
 fi
 
 if [ -z "$INTERNAL_IP" ]; then
-  export INTERNAL_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
-  cat /usr/local/nginx/conf/nginx.conf
+  case $CLOUD_PROVIDER in
+    GCP|Google|GOOGLE)
+      export INTERNAL_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
+      ;;
+    AWS|Amazon)
+      export INTERNAL_IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
+      ;;
+  esac
 fi
+
 echo "INTERNAL_IP is $INTERNAL_IP"
 
 exec "$@"
