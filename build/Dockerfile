@@ -32,6 +32,7 @@ EXPOSE 443
 
 COPY hook /usr/local/nginx/hook
 COPY conf /usr/local/nginx/conf
+RUN chown -R nginx:nginx /usr/local/nginx/conf/auto-ssl/
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
