@@ -1,0 +1,16 @@
+resolver __RESOLVER_ADDRESS__ valid=5s;
+
+upstream named_reverse_proxy {
+  server unix:/var/run/__PROXY_NAME__.sock;
+}
+
+server {
+  listen unix:/var/run/__PROXY_NAME__.sock;
+  server_name _;
+
+  set $origin "__PROXY_NAME__";
+
+  location / {
+    proxy_pass https://$origin:443;
+  }
+}

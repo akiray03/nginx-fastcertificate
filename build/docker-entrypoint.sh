@@ -6,6 +6,14 @@ do
   echo "env $e;"
 done > /usr/local/nginx/conf/env_vars.conf
 
+for url in $(env | grep -E "_PROXY_TO_URL" | cut -d'=' -f2)
+do
+  cat /usr/local/nginx/conf/conf.d/named-reverse-proxy.conf.template | \
+    sed -e "s/__PROXY_NAME__/$url/g" \
+        -e "s/__RESOLVER_ADDRESS__/$RESOLVER_ADDRESS/g" \
+    > /usr/local/nginx/conf/conf.d/${url}.conf
+done
+
 if [ ! -z "$NGINX_WORKER_PROCESSES" ]; then
   rm -f /usr/local/nginx/conf/worker_processes.conf
   echo "worker_processes $NGINX_WORKER_PROCESSES;" > /usr/local/nginx/conf/worker_processes.conf
