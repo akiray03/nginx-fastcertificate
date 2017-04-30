@@ -1,17 +1,19 @@
 #!/bin/bash
 
 rm -f /usr/local/nginx/conf/env_vars.conf
-for e in $(env | grep -E "_PROXY_TO_(HOST|PORT)" | cut -d'=' -f1)
+for e in $(env | grep -E "_PROXY_TO_(HOST|PORT|URL)" | cut -d'=' -f1)
 do
   echo "env $e;"
 done > /usr/local/nginx/conf/env_vars.conf
 
 for url in $(env | grep -E "_PROXY_TO_URL" | cut -d'=' -f2)
 do
+  name=$(echo $url | sed -E 's|^https?://||' | cut -d/ -f1 | sed -e 's|\.|_|g')
   cat /usr/local/nginx/conf/conf.d/named-reverse-proxy.conf.template | \
-    sed -e "s/__PROXY_NAME__/$url/g" \
-        -e "s/__RESOLVER_ADDRESS__/$RESOLVER_ADDRESS/g" \
-    > /usr/local/nginx/conf/conf.d/${url}.conf
+    sed -e "s|__PROXY_NAME__|$name|g" \
+        -e "s|__PROXY_URL__|$url|g" \
+        -e "s|__RESOLVER_ADDRESS__|$RESOLVER_ADDRESS|g" \
+    > /usr/local/nginx/conf/conf.d/${name}.conf
 done
 
 if [ ! -z "$NGINX_WORKER_PROCESSES" ]; then

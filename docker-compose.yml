@@ -1,8 +1,8 @@
 version: '3'
 services:
   nginx:
-    image: quay.io/akiray03/nginx-fastcertificate
-    # build: ./build
+    # image: quay.io/akiray03/nginx-fastcertificate
+    build: ./build
     ports:
       - '80:80'
       - '443:443'
@@ -14,12 +14,12 @@ services:
       NGINX_WORKER_PROCESSES: 2
       REDIS_HOST: "redis"
       RESOLVER_ADDRESS: 8.8.8.8
-      # CLOUD_PROVIDER: Google
+      CLOUD_PROVIDER: Google
       # INTERNAL_IP: 192.168.0.10
-      SSL_DOMAINS: "test.example.com test2.example.com"
-      test_example_com_PROXY_TO_HOST: INTERNAL_IP
-      test_example_com_PROXY_TO_PORT: '3000'
-      test_example_com_PROXY_TO_URL: "test2.origin.example.com"
+      SSL_DOMAINS: "a.test.yumiyama.com b.test.yumiyama.com"
+      a_test_yumiyama_com_PROXY_TO_HOST: INTERNAL_IP
+      a_test_yumiyama_com_PROXY_TO_PORT: '3000'
+      b_test_yumiyama_com_PROXY_TO_URL: "https://www.google.com/"
     depends_on:
       - redis
 
